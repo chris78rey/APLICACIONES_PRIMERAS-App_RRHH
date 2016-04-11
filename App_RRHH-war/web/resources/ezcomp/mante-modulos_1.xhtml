@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:panelGrid columns="2">  
+            <h:outputText style="font-size: 13px;" value="mod_id:" />
+            <p:inputText style="font-size: 13px;"  id="it_mod_id" readonly="true"  value="#{modulos.segModulos.modId}" size="20"/> 
+            <h:outputText style="font-size: 13px;"  value="mod_nombre_modulo:" />
+            <p:inputText  style="font-size: 13px;"  id="it_mod_nombre_modulo"   value="#{modulos.segModulos.modNombreModulo}"  size="20" >
+                <f:ajax event="change" listener="#{modulos.listen1(event)}"/>
+            </p:inputText>
+            <h:outputText style="font-size: 13px;"  value="mod_url:" />
+            <p:inputText style="font-size: 13px;"  id="it_mod_url"   value="#{modulos.segModulos.modUrl}"  size="20" >
+                <f:ajax event="change" listener="#{modulos.listen2(event)}"/>
+            </p:inputText>
+            <h:outputText style="font-size: 13px;"  value="mod_url_siguiente:" />
+            <p:inputText style="font-size: 13px;"   id="it_mod_url_siguiente"   value="#{modulos.segModulos.modUrlSiguiente}"  size="20"  >
+                <f:ajax event="change" listener="#{modulos.listen3(event)}"/>
+            </p:inputText>
+            <p:commandButton value="Nuevo"  process="@this" id="ajax1"  update=":formDetalle:carDetail:"  action ="#{modulos.buttonAction_nuevo()}" styleClass="ui-priority-primary" style="font-size: 11px;"  />
+            <p:commandButton value="Crear" process="@this" id="ajax2"   actionListener="#{modulos.buttonAction_crear()}" styleClass="ui-priority-primary" style="font-size: 11px;"  />
+            <p:commandButton value="Modificar" process="@this" id="ajax3"  update="formDetalle:" action="#{modulos.buttonAction_modificar()}" styleClass="ui-priority-primary" style="font-size: 11px;"  />
+            <p:commandButton value="Eliminar" process="@this" id="ajax4"  update="formDetalle:" action="#{modulos.buttonAction_eliminar()}" styleClass="ui-priority-primary" style="font-size: 11px;"  />
+
+        </p:panelGrid>  
+    </cc:implementation>
+</html>

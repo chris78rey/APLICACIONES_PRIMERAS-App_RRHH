@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../template/Template.xhtml">
+        
+            <ui:define name="center">
+                <center>
+                    <h:form>
+                        <p:growl id="msgs" showDetail="true"/>               
+                        <BR/>
+                        <p:commandButton value="Agregar" style="font-size: 13px;" oncomplete="PF('carDialog').show()" icon="ui-icon-circle-plus" title="View"/>
+
+                        <p:dialog header="Ingreso" widgetVar="carDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="carDetail" style="text-align:center;">
+
+                                <h:outputText style="font-size: 13px;"  value="Agregar"/>
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel style="font-size: 9px;"  value="TipoRelacionLaboral:" for="tipoRelacionLaboral" />
+                                    <p:selectOneMenu style="font-size: 9px;" required="true"  id="tipoRelacionLaboral" value="#{parametro.segMinisterioFinanzas.tipoRelacionLaboral}" converter="converterMenuModulo"  >                       
+                                        <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                        <f:selectItems value="#{parametro.tipoRelacionLaboral}" var="entity" itemLabel="#{entity.trlTiporelacion}" itemValue="#{entity}" />
+                                    </p:selectOneMenu>
+                                    <h:outputLabel style="font-size: 9px;"  value="Activo:" for="activo" />
+                                    <p:selectOneMenu style="font-size: 9px;"   value="#{parametro.segMinisterioFinanzas.activo}"  >
+                                        <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="INACTIVO" itemValue="0"/>
+                                        <f:selectItem itemLabel="ACTIVO" itemValue="1"/>                                    
+                                    </p:selectOneMenu>
+                                    <h:outputLabel  style="font-size: 9px;" value="Anio;" for="mfiAnio" />
+                                    <p:selectOneMenu style="font-size: 9px;"   value="#{parametro.segMinisterioFinanzas.mfiAnio}"   >
+                                        <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="2014" itemValue="2014"/>
+                                        <f:selectItem itemLabel="2015" itemValue="2015"/>                                                    
+                                        <f:selectItem itemLabel="2016" itemValue="2016"/>                                                    
+                                    </p:selectOneMenu>
+                                    <h:outputLabel style="font-size: 9px;"  value="Mes;" for="mfiMes" />
+                                    <p:selectOneMenu style="font-size: 9px;"   value="#{parametro.segMinisterioFinanzas.mfiMes}"  >
+                                        <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="ENERO" itemValue="ENERO"/>
+                                        <f:selectItem itemLabel="FEBRERO" itemValue="FEBRERO"/>
+                                        <f:selectItem itemLabel="MARZO" itemValue="MARZO"/>
+                                        <f:selectItem itemLabel="ABRIL" itemValue="ABRIL"/>
+                                        <f:selectItem itemLabel="MAYO" itemValue="MAYO"/>
+                                        <f:selectItem itemLabel="JUNIO" itemValue="JUNIO"/>
+                                        <f:selectItem itemLabel="JULIO" itemValue="JULIO"/>
+                                        <f:selectItem itemLabel="AGOSTO" itemValue="AGOSTO"/>
+                                        <f:selectItem itemLabel="SEPTIEMBRE" itemValue="SEPTIEMBRE"/>
+                                        <f:selectItem itemLabel="OCTUBRE" itemValue="OCTUBRE"/>
+                                        <f:selectItem itemLabel="NOVIEMBRE" itemValue="NOVIEMBRE"/>
+                                        <f:selectItem itemLabel="DICIEMBRE" itemValue="DICIEMBRE"/>
+                                    </p:selectOneMenu>
+                                    <h:outputLabel style="font-size: 9px;"  value="numeromfin:" for="mfiCodigo" />
+                                    <h:inputText style="font-size: 9px;"  id="mfiCodigo" value="#{parametro.segMinisterioFinanzas.mfiCodigo}" title="MfiCodigo" />
+
+                                    <h:outputLabel style="font-size: 9px;"  value="Orden:" for="orden" />
+                                    <h:inputText style="font-size: 9px;" rendered="true" id="orden" value="#{parametro.segMinisterioFinanzas.orden}" title="Orden" required="true" requiredMessage="The Orden field is required."/>
+
+                                </h:panelGrid>
+                                <p:commandButton value="Crear" id="ajax" style="font-size: 9px;"  process="@form" update="@form :form:tbl1 msgs carDetail" action="#{parametro.crear()}" />
+
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                    <h:form id="form">
+                        <p:growl id="msgs" showDetail="true"/>
+                        <center>
+                            <h:panelGrid width="75%">
+
+
+
+                                <p:dataTable id="tbl1" style="font-size: 13px;width: 100%" editable="true"  value="#{parametro.segMinisterioFinanzases}" var="item">
+                                    <f:facet name="header">
+                                        Agregue por código del Ministerio de Finanzas
+                                    </f:facet>
+
+                                    <p:ajax event="rowEdit" listener="#{parametro.onRowEdit}" update=":form:msgs tbl1" />
+                                    <p:ajax event="rowEditCancel" listener="#{parametro.onRowCancel}" update=":form:msgs tbl1" />
+                                    <p:column style="width:32px">
+                                        <p:rowEditor />
+                                    </p:column>
+                                    <p:column headerText="Tipo de contrato">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{item.tipoRelacionLaboral.trlTiporelacion}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <h:selectOneMenu style="font-size: 9px;width: 100%"  id="iterator" value="#{item.tipoRelacionLaboral}" converter="converterMenuModulo"   >
+                                                    <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                                    <f:selectItems value="#{parametro.tipoRelacionLaboral}" var="entity" itemLabel="#{entity.trlTiporelacion}" itemValue="#{entity}" />
+                                                </h:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>                    
+                                    <p:column headerText="Año" >
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{item.mfiAnio}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <h:selectOneMenu style="font-size: 9px;width: 100%"   value="#{item.mfiAnio}"   >
+                                                    <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                                    <f:selectItem itemLabel="2014" itemValue="2014"/>
+                                                    <f:selectItem itemLabel="2015" itemValue="2015"/>                                                    
+                                                </h:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Descripción">
+                                        <h:outputText style="font-size: 9px;" value="#{item.mfiDesc}" />
+                                    </p:column>
+                                    <p:column headerText="Mes">
+                                        <p:cellEditor >
+                                            <f:facet name="output">
+                                                <h:outputText style="font-size: 9px;" value="#{item.mfiMes}" />
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <h:selectOneMenu style="font-size: 9px;width: 100%"   value="#{item.mfiMes}"  >
+                                                    <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                                    <f:selectItem itemLabel="ENERO" itemValue="ENERO"/>
+                                                    <f:selectItem itemLabel="FEBRERO" itemValue="FEBRERO"/>
+                                                    <f:selectItem itemLabel="MARZO" itemValue="MARZO"/>
+                                                    <f:selectItem itemLabel="ABRIL" itemValue="ABRIL"/>
+                                                    <f:selectItem itemLabel="MAYO" itemValue="MAYO"/>
+                                                    <f:selectItem itemLabel="JUNIO" itemValue="JUNIO"/>
+                                                    <f:selectItem itemLabel="JULIO" itemValue="JULIO"/>
+                                                    <f:selectItem itemLabel="AGOSTO" itemValue="AGOSTO"/>
+                                                    <f:selectItem itemLabel="SEPTIEMBRE" itemValue="SEPTIEMBRE"/>
+                                                    <f:selectItem itemLabel="OCTUBRE" itemValue="OCTUBRE"/>
+                                                    <f:selectItem itemLabel="NOVIEMBRE" itemValue="NOVIEMBRE"/>
+                                                    <f:selectItem itemLabel="DICIEMBRE" itemValue="DICIEMBRE"/>
+                                                </h:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column>                                   
+
+                                        <p:cellEditor >
+                                            <f:facet name="output">
+                                                <h:outputLabel style="font-size: 9px;"  value="#{item.mfiCodigo}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <h:inputText style="font-size: 9px;" value="#{item.mfiCodigo}"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column headerText="Activo">                                  
+                                        <p:cellEditor >
+                                            <f:facet name="output">
+                                                <h:selectOneMenu style="font-size: 9px;width: 100%"   value="#{item.activo}"  >
+                                                    <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                                    <f:selectItem itemLabel="INACTIVO" itemValue="0"/>
+                                                    <f:selectItem itemLabel="ACTIVO" itemValue="1"/>                                    
+                                                </h:selectOneMenu>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <h:selectOneMenu style="font-size: 9px;width: 100%"   value="#{item.activo}"  >
+                                                    <f:selectItem itemLabel="Choose item" noSelectionOption="true" />
+                                                    <f:selectItem itemLabel="INACTIVO" itemValue="0"/>
+                                                    <f:selectItem itemLabel="ACTIVO" itemValue="1"/>                                    
+                                                </h:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="orden">
+                                        <p:cellEditor >
+                                            <f:facet name="output">
+                                                <h:outputText style="font-size: 9px;" value="#{item.orden}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <h:inputText style="font-size: 9px;" value="#{item.orden}"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="" width="5%">
+                                        <p:commandButton id="cmb1"  icon="ui-icon-trash" process="cmb1" update="cmb1 tbl1" action="#{parametro.buttonActionEliminar()}" >
+                                            <p:confirm header="Confirmation" message="Esta seguro de borrar el registro?" icon="ui-icon-trash" />
+                                            <f:setPropertyActionListener value="#{item}" target="#{parametro.segMinisterioFinanzas}" />
+                                        </p:commandButton>
+                                    </p:column>  
+                                </p:dataTable>
+                                <p:confirmDialog style="font-size: 13px;"  global="true" showEffect="fade" hideEffect="explode">
+                                    <p:commandButton value="Sí" update="tbl1" process="@this" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+
+                </center>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

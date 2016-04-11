@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      >
+
+    <body>
+
+        <ui:composition template="./../template/Template.xhtml">
+
+
+
+
+            <ui:define name="center">
+                <h1>
+                    Listado de Acumulación de décimos
+                </h1>
+                <br/>
+                <br/>
+                <br/>
+
+                <h:form>
+                    <p:commandLink id="pdf" ajax="false"  >  
+                        <p:outputLabel value="Excel"/> 
+                      
+
+                        <pe:exporter type="xlsx" target="tabla1"  fileName="AcumulaDecimos" />  
+
+                    </p:commandLink> 
+                    <p:dataTable id="tabla1" value="#{listacumulacion.listD13D14}" var="item">
+                        <p:column>                          
+                            <f:facet name="header">
+                                <h:outputText style="font: sans-serif;font-size: x-small" value="PRN_NUMDOCUMENTO"/>
+                            </f:facet>
+                            <h:outputText style="font: sans-serif;font-size: x-small" value="#{item.PRN_NUMDOCUMENTO}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText style="font: sans-serif;font-size: x-small" value="PRN_IDPERSONAL"/>
+                            </f:facet>
+                            <h:outputText style="font: sans-serif;font-size: x-small" value="#{item.PRN_IDPERSONAL}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText style="font: sans-serif;font-size: x-small" value="PRN_APELLIDOS"/>
+                            </f:facet>
+                            <h:outputText style="font: sans-serif;font-size: x-small" value="#{item.PRN_APELLIDOS}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText style="font: sans-serif;font-size: x-small" value="PRN_NOMBRES"/>
+                            </f:facet>
+                            <h:outputText style="font: sans-serif;font-size: x-small" value="#{item.PRN_NOMBRES}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText style="font: sans-serif;font-size: x-small" value="D13"/>
+                            </f:facet>
+                            <h:outputText style="font: sans-serif;font-size: x-small" value="#{item.D13}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText style="font: sans-serif;font-size: x-small" value="D14"/>
+                            </f:facet>
+                            <h:outputText style="font: sans-serif;font-size: x-small" value="#{item.D14}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

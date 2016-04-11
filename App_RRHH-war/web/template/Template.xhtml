@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      >
+
+    <f:view contentType="text/html">
+
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>HOSPITAL DE ESPECIALIDADES DE LAS FUERZAS ARMADAS N1</title>
+                <link type="text/css" rel="stylesheet" href="/project/faces/javax.faces.resource/theme.css?ln=cupertino" />
+            </f:facet>
+        </h:head>
+        <h:body>
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north"    size="27%"  resizable="false" closable="true" collapsible="true">
+                    <center>
+                        <p:panel  style="background-color:#c2dfef;height: 75%;width: 75%;">
+                            <center>
+                                <p:graphicImage  url="/resources/images/banner_he_1.png"/>                              
+
+                            </center>
+                        </p:panel>
+                    </center>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+
+                </p:layoutUnit>
+
+                <ui:insert name="west">
+                    <p:layoutUnit style="font-size: 13px;"  position="west" size="20%" header="HE1" collapsible="true">
+                        <ui:insert name="menuIzquierdo">
+                            <h:form>
+                                <p:growl id="messages" showDetail="false"/>
+                                <p:menu>
+                                    <p:submenu style="font-size: 13px;"  label="Administración">
+                                       
+                                        <p:menuitem value="Excel Nómina mensual" style="font-size: 13px;" outcome="/administracion/TemplateClientUploadSueldo"   />
+                                        <p:menuitem value="Reporte Excel" style="font-size: 13px;" outcome="/administracion/TemplateClientListaAcumulacion"   />
+                                    </p:submenu>   
+
+                                </p:menu>
+                            </h:form>
+                        </ui:insert>
+                    </p:layoutUnit>
+                </ui:insert>
+
+
+
+
+
+
+                <p:layoutUnit position="center">
+
+                    <center>
+                        <ui:insert name="encabezadomenu">
+                            <center>
+                                <h:form>
+                                    <h:panelGrid id="pg1" columns="10"  width="75%">
+                                        <p:menubar  style="font-size: 13px;">
+
+                                            <p:submenu  label="Cedula:#{login.findByCedulaLogin.cedulaLogin}"/>
+                                            <p:submenu  label="Nombres:#{login.findByCedulaLogin.nombres}"/>
+                                            <p:submenu  label="Apellidos:#{login.findByCedulaLogin.apellidos}"/>
+                                            <p:submenu  label="Email:#{login.findByCedulaLogin.email}"/>
+                                            <p:submenu  label="Celular:#{login.findByCedulaLogin.celular}"/>
+                                        </p:menubar>
+                                        <p:commandButton style="font-size: 13px;" action="#{login.regresaMenuPortal()}"  value="Menú"/>
+                                        <p:commandButton style="font-size: 13px;" action="#{login.logout()}"  value="Salir"/>
+                                    </h:panelGrid>
+                                </h:form>
+                            </center>
+                        </ui:insert>
+                        <ui:insert name="center">
+                        </ui:insert>
+                    </center>
+
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

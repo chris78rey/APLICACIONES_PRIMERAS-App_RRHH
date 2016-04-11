@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../template/Template.xhtml">
+
+
+
+
+            <ui:define name="center">
+                <h1>
+                    Ojo los archivos deben estar en formato .xlsx todas las celdas deben ser tipo text no numérico ni general
+                </h1>
+                <table style="font-size: 13px;"  border="1"  cellspacing="1" cellpadding="1" width="50%">
+                    <thead>
+                        Ejemplo del formato del archivo a cargar
+                    </thead>
+                    <tr></tr>
+                    <tr></tr>
+                    <tr>
+                        <th align="left" bgcolor="#c2dfef" bordercolor="#FFFFFF">CEDULA</th>
+                        <th align="left" bgcolor="#c2dfef" bordercolor="#FFFFFF">CODIGO</th>
+                        <th align="left" bgcolor="#c2dfef" bordercolor="#FFFFFF">MES TEXTO</th>
+                        <th align="left" bgcolor="#c2dfef" bordercolor="#FFFFFF">MES NÚMERO</th>
+                        <th align="left" bgcolor="#c2dfef" bordercolor="#FFFFFF">AÑO</th>
+                        <th align="left" bgcolor="#c2dfef" bordercolor="#FFFFFF">DESCRIPCION</th>
+                    </tr>
+                    <tr>    
+                        <td   >1705342879</td>
+                        <td   >4325372</td>
+                        <td   >MAYO</td>
+                        <td   >5</td>                        
+                        <td   >2014</td>
+                        <td   >MAYO DE 2014</td>
+                    </tr>
+                    <tr>    
+                        <td>1718413675</td>
+                        <td>4325372</td>
+                        <td>MAYO</td>
+                        <td>5</td>
+                        <td>2014</td>
+                        <td>MAYO DE 2014</td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <br/>
+
+
+                <table align="center" width="0%">
+                    <tr>
+
+                        <td align="center">
+                            <h:form enctype="multipart/form-data" id="f1">
+
+                                <p:fileUpload fileUploadListener="#{jSFManagedBeanFileUpload.handleFileUpload}" cancelLabel="Cancelar" uploadLabel="Subir Archivo" label="Seleccione el Archivo" style="font-size: 13px;" 
+                                              mode="advanced" update="@this display :form2:cb2"  sizeLimit="10000000"
+                                              allowTypes="/(\.|\/)(xls|xlsx)$/" />
+                                <p:growl id="display" showDetail="true" />
+                            </h:form>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <h:form id="form2">
+                                <p:growl id="display2" showDetail="true" />
+
+                                <p:commandButton id="cb2" style="font-size: 13px;"  disabled="#{ not (jSFManagedBeanFileUpload.grabar eq '1')}"  action="#{jSFManagedBeanFileUpload.convertjava}" process="@form" update="@form" value="Grabar en la Base de datos" />
+
+                            </h:form>
+                        </td>
+                    </tr>
+                </table>
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

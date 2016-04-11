@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:outputPanel id="carDetail" style="text-align:center;">
+            <ez:outPerfil/>
+            <p:commandButton value="Nuevo" 
+                             process="@this" 
+                             ajax="false"
+                             id="ajax21" 
+                             update="carDetail"
+                             actionListener="#{perfil.buttonAction_nuevo()}" 
+                             styleClass="ui-priority-primary" 
+                             style="font-size: 11px;"  />
+            <p:commandButton value="Crear" 
+                             process="@this" 
+                             ajax="false"
+                             id="ajax2" 
+
+                             actionListener="#{perfil.buttonAction_crear()}" 
+                             styleClass="ui-priority-primary" 
+                             style="font-size: 11px;"  />
+
+            <p:commandButton value="Modificar" 
+                             process="@this" 
+                             ajax="false"
+                             actionListener="#{perfil.buttonAction_modificar()}" 
+                             styleClass="ui-priority-primary" 
+                             style="font-size: 11px;"  />
+            <p:commandButton value="Eliminar" 
+                             process="@this" 
+                             ajax="false"
+                             actionListener="#{perfil.buttonAction_eliminar()}" 
+                             styleClass="ui-priority-primary" 
+                             style="font-size: 11px;"  />
+    </cc:implementation>
+</html>
